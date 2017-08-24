@@ -1,0 +1,65 @@
+body {
+    font-family: Arial, Helvetica, sans-serif;
+    background-color: gray;
+}
+
+.container {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-around;
+}
+
+.profileContainer {
+    display: flex;
+    justify-content: center;
+}
+
+.box {
+    background-color: white;
+    width: 11rem;
+    height: 14rem;
+    border: 1px solid gray;
+    margin-top: 15px;
+    padding: .4rem;
+}
+
+.hire {
+    color: red;
+}
+
+.profile {
+    background-color: white;
+    border: 1px solid darkgray;
+    height: 15rem;
+    width: 32rem;
+    display: flex;
+    margin-top: 4.2rem;
+}
+
+h1 {
+    padding-left: 1rem;
+}
+
+h2 {
+    font-size: 18px;
+}
+
+.two {
+    margin: 0 auto;
+    margin-top: 2.5rem;
+}
+
+.one {
+    padding-left: 1.8rem;
+}
+
+.img {
+    border-radius: 50px;
+    border: 1px solid darkgray;
+    margin-top: 2.5rem;
+}
+
+button {
+    border: none;
+    background-color: white;
+}
