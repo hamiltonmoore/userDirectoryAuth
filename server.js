@@ -102,7 +102,13 @@ app.get("/employed", function (req, res) {
         res.render("employee", { users: employedBots })
     })
 });
+app.get("/unemployed", function (req, res) {
+    Robots.find({ job: null }).toArray((err, unemployedBots) => {
+        if (err) res / status(500).send(err);
+        res.render("unemployed", { users: employedBots });
+    })
+}
 
 app.listen(port, function () {
-    console.log(`server is running on port ${port}!`);
-});
+        console.log(`server is running on port ${port}!`);
+    });
