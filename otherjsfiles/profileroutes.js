@@ -2,19 +2,16 @@
 const express = require('express');
 //create a router
 const profileroutes = express.Router();
-const data = require('../models/data');
+const User = require('../models/Users');
 
-profileroutes.get("/:id", (req, res) => {
-    let reqId = req.params.id;
-    console.log(req.params.id);
-    let foundUser = data.users.find(user => user.id == reqId);
+// profileroutes.get("/:id", (req, res) => {
+//     User.findOne({ _id: ObjectId(req.params.id) }, function (err, foundUser) {
+//         if (err) res.status(500).send(err);
+//         if (!foundUser) res.send("no user found");
+//         res.render("profile", { user: foundUser });
+//     });
+// });
 
-    if (foundUser) {
-        return res.render("profile", { foundUser: foundUser });
-    } else {
-        return res.send("ERROR ERROR WILL ROBBINSON")
-    }
-});
 module.exports = profileroutes;
 //export the route
 //req.params.id follows the route to the specific id number in this case

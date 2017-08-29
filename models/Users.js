@@ -15,9 +15,13 @@ const userSchema = new Schema({
         required: true
     },
     email: String,
-    univeristy: String,
+    university: String,
+    job: String,
+    avatar: String,
 });
 
 let User = mongoose.model("User", userSchema);
 
 module.exports = User;
+
+//url is a string

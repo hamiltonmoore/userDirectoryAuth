@@ -12,18 +12,30 @@
 <body>
     <div class="profileContainer">
         <div class="profile">
-            {{#foundUser}}
+            {{#users}}
             <div class="one">
-                <div><img class="img" src="{{avatar}}"></div>
+                <div><img class="img" src="{{avatar}}">
             </div>
-            <div class="two">
+            <div class="profile1">
                 <h2>Name: {{name}}</h2>
                 <div> Username: {{username}}</div>
                 <br>
-                <div>{{university}}</div>
-                <div>{{email}}</div>
+                <div>Education: {{university}}</div>
+                <div>Email: {{email}}</div>
+                <form action="/delete/{{_id}}" method="POST">
+                <button type="submit">Delete</button>
+                </form>
             </div>
-            {{/foundUser}}
+            <div class="profile2">
+            <form action="/profile/{{_id}}" method="POST">
+                <input type="text" name="name" value="{{name}}">
+                <input type="text" name="username" value="{{username}}">
+                <input type="text" name="university" value="{{university}}">
+                <input type="email" name="email" value="{{email}}">
+                <button type="submit">Update</button>
+            </form>
+            </div>
+            {{/users}}
         </div>
     </div>
 </body>

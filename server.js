@@ -1,19 +1,52 @@
 var express = require("express");
-const port = process.env.PORT || 8100
 const path = require("path");
 const mongoose = require("mongoose");
-const app = express();
-const User = require("./models/Users");
 const bodyParser = require("body-parser");
-const bcrypt = require("bcryptjs");
 const logger = require("morgan");
+let session = require("express-session")
 const mustacheExpress = require("mustache-express");
+const bcrypt = require("bcryptjs");
+const User = require("./models/Users");
 const indexroutes = require("./otherjsfiles/indexroutes");
 const profileroutes = require("./otherjsfiles/profileroutes");
+const sessionConfig = require("./sessionConfig");
 const dbUrl = "mongodb://localhost:27017/userDirectory";
 let db = mongoose.connect(dbUrl);
-let session = require("express-session")
-const sessionConfig = require("./sessionConfig");
+const mongo = require("mongodb");
+const port = process.env.PORT || 8100
+// const data = require("./models/data");
+// const express = require("express");
+// const mongo = require("mongodb");
+// const MongoClient = mongo.MongoClient;
+// const ObjectId = mongo.ObjectID;
+// const dbUrl = "mongodb://localhost:27017/userDirectory";
+// let DB;
+// let Users;
+// const app = express();
+
+// Connect to DB
+
+// app.get("/insertmany", (req, res) => {
+//     MongoClient.connect(dbUrl, function (err, db) {
+//         if (err) {
+//             return res.status(500).send(err);
+//         }
+
+//         let Users = db.collection("Users");
+
+//         Users.insertMany(data.users, function (err, db) {
+//             if (err) {
+
+//                 return res.status(500).send(err);
+//             }
+//             res.send(data.users);
+
+//         });
+
+//     });
+// });
+
+const app = express();
 
 app.engine("mustache", mustacheExpress());
 app.set("views", "./views");
@@ -25,22 +58,6 @@ app.use(logger("dev"));
 app.use("/", indexroutes);
 app.use("/", profileroutes);
 app.use(session(sessionConfig));
-
-// app.get("/insertMany", function (req, res) {
-//     let users = data.users;
-//     let salt = bcrypt.genSaltSync(10);
-//     users.forEach(function (user) {
-//         user.password = bcrypt.hashSync("asdf", salt);
-//         console.log(user);
-//     })
-
-//     User.insertMany(users, function (err, savedUsers) {
-//         if (err) {
-//             res.status(500).send(err);
-//         }
-//         res.send(savedUsers);
-//     });
-// });
 
 //calling routes:
 app.use("/profile", profileroutes);
@@ -97,18 +114,72 @@ app.post("/login", function (req, res) {
 
 //get employeed/unemployed
 app.get("/employed", function (req, res) {
-    Robots.find({ job: { $ne: null } }).toArray((err, employedBots) => {
-        if (err) res.status(500).send(err);
-        res.render("employee", { users: employedBots })
+    User.find({ job: { $ne: null } }).then((employedBots) => {
+        if (!employedBots) res.status(500).send("no employed bots");
+        return res.render("home", { users: employedBots })
     })
 });
 app.get("/unemployed", function (req, res) {
-    Robots.find({ job: null }).toArray((err, unemployedBots) => {
-        if (err) res / status(500).send(err);
-        res.render("unemployed", { users: employedBots });
+    User.find({ job: null }).then((unemployedBots) => {
+        if (!unemployedBots) res.status(500).send("no unemployed bots");
+        res.render("home", { users: unemployedBots });
     })
-}
+});
+
+/////////////////////
+
+//this is for editing a profile
+app.get("/profile/:id", function (req, res) {
+    User.findById(req.params.id)
+        .then(function (foundUser) {
+            if (!foundUser) {
+                return res.send({ msg: "No User Found" })  //note the absence of plurality 
+            }
+            console.log("foundUser = ", foundUser);
+            res.render("profile", { users: foundUser })
+        })
+        .catch(function (err) {
+            res.status(500).send(err);
+        })
+});
+
+app.post("/profile", function (req, res) {
+    let newUser = new User(req.body); //is this a method?? //what is an instance
+    console.log("this is the array: ", newUser);
+    newUser
+        .save()
+        .then(function (savedUser) { //.then returns a promise(something executed after something is finished)
+            return res.redirect("/");  //can send data, just can't merge data and templetes like render can
+        })
+        .catch(function (err) {    //.catch returns errors 
+            return res.status(500).send(err);
+        })
+})
+
+app.post("/profile/:id", function (req, res) {  //this is the update request 
+    User.findByIdAndUpdate(req.params.id, req.body)
+        .then(function (updatedUser) {
+            if (!updatedUser) {
+                return res.send({ msg: "could not update user" });
+            }
+            res.redirect("/");
+        })
+        .catch(function (err) {
+            res.status(500).send(err);
+        });
+});
+app.post("/delete/:id", function (req, res) {
+    User.findByIdAndRemove(req.params.id)
+        .then(function () {
+            res.redirect("/");
+        })
+        .catch(function (err) {
+            res.status(500).send(err);
+        });
+});
 
 app.listen(port, function () {
-        console.log(`server is running on port ${port}!`);
-    });
+    console.log(`server is running on port ${port}!`);
+});
+
+//mongo 
