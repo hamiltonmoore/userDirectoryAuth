@@ -71,7 +71,6 @@ app.get("/signup", function (req, res) {
 
 app.post("/signup", function (req, res) {
     let newUser = new User(req.body);
-
     let salt = bcrypt.genSaltSync(10);
     newUser.password = bcrypt.hashSync(newUser.password, salt);
     newUser
@@ -105,9 +104,7 @@ app.post("/login", function (req, res) {
         }
 
         delete foundUser.password;
-        console.log('foundUser: ', foundUser);
         req.session.user = foundUser;
-        console.log('foundUser: ', res.session);
         return res.redirect("/");
     });
 });

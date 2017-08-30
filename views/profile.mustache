@@ -13,7 +13,7 @@
     <div class="profileContainer">
         <div class="profile">
             {{#users}}
-            <div class="one">
+            <div class="profileBox">
                 <div><img class="img" src="{{avatar}}">
             </div>
             <div class="profile1">
@@ -22,6 +22,7 @@
                 <br>
                 <div>Education: {{university}}</div>
                 <div>Email: {{email}}</div>
+                <div class="hire">{{^job}}for hire{{/job}}</div>
                 <form action="/delete/{{_id}}" method="POST">
                 <button type="submit">Delete</button>
                 </form>
@@ -32,6 +33,7 @@
                 <input type="text" name="username" value="{{username}}">
                 <input type="text" name="university" value="{{university}}">
                 <input type="email" name="email" value="{{email}}">
+                <input type="text" name="job" value="{{job}}">
                 <button type="submit">Update</button>
             </form>
             </div>

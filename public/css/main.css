@@ -3,15 +3,13 @@ body {
     background-color: gray;
 }
 
+
+/* Primary Home Page Components */
+
 .container {
     display: flex;
     flex-wrap: wrap;
     justify-content: space-around;
-}
-
-.profileContainer {
-    display: flex;
-    justify-content: center;
 }
 
 .box {
@@ -23,9 +21,30 @@ body {
     padding: .4rem;
 }
 
-.hire {
-    color: red;
+.profileContainer {
+    display: flex;
+    justify-content: center;
 }
+
+
+/* Primary Login/Signup Page Components */
+
+.inputContainer {
+    display: flex;
+    justify-content: center;
+}
+
+.formContainer {
+    background-color: white;
+    border: 1px solid darkgray;
+    height: 15rem;
+    width: 32rem;
+    display: flex;
+    margin-top: 4.2rem;
+}
+
+
+/* Profile Page Components */
 
 .profile {
     background-color: white;
@@ -36,21 +55,27 @@ body {
     margin-top: 4.2rem;
 }
 
+.profile1 {
+    margin: 0 auto;
+}
+
+.profileBox {
+    padding-left: 1.8rem;
+}
+
+
+/* Other */
+
+.hire {
+    color: red;
+}
+
 h1 {
     padding-left: 1rem;
 }
 
 h2 {
     font-size: 18px;
-}
-
-.profile1 {
-    margin: 0 auto;
-    margin-top: 2.5rem;
-}
-
-.one {
-    padding-left: 1.8rem;
 }
 
 .img {
