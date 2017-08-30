@@ -11,15 +11,17 @@
 
 <body>
     <div class="inputContainer">
-        <h1>Log In</h1>
         {{#errors}}
             {{.}}
         {{/errors}}
-    <div class="formContainer"
+    <div class="formContainer">
+        <h1>Log In</h1>
         <form action="/login" method="POST">
+        <div class="formColumn">
             <input type="text" name="username">
             <input type="password" name="password">
             <button type="submit">Log In</button>
+        </div>
         </form>
     </div>
     </div>
