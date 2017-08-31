@@ -40,7 +40,7 @@ body {
     flex-direction: column;
     background-color: white;
     border: 1px solid darkgray;
-    height: 15rem;
+    height: 18rem;
     width: 32rem;
     margin-top: 4.2rem;
 }
@@ -57,6 +57,7 @@ input {
     width: 11rem;
     height: 1.8rem;
     font-size: 21px;
+    color: lightgray;
 }
 
 
@@ -65,7 +66,7 @@ input {
 .profile {
     background-color: white;
     border: 1px solid darkgray;
-    height: 15rem;
+    height: 32rem;
     width: 32rem;
     display: flex;
     margin-top: 4.2rem;
@@ -103,4 +104,9 @@ h2 {
 button {
     border: none;
     background-color: white;
+}
+
+a {
+    text-decoration: none;
+    color: black;
 }

@@ -10,21 +10,15 @@ const User = require("./models/Users");
 const indexroutes = require("./otherjsfiles/indexroutes");
 const profileroutes = require("./otherjsfiles/profileroutes");
 const sessionConfig = require("./sessionConfig");
+const bluebird = require("bluebird");
 const dbUrl = "mongodb://localhost:27017/userDirectory";
+mongoose.Promise = bluebird;
 let db = mongoose.connect(dbUrl);
 const mongo = require("mongodb");
 const port = process.env.PORT || 8100
 // const data = require("./models/data");
-// const express = require("express");
-// const mongo = require("mongodb");
-// const MongoClient = mongo.MongoClient;
-// const ObjectId = mongo.ObjectID;
-// const dbUrl = "mongodb://localhost:27017/userDirectory";
-// let DB;
-// let Users;
-// const app = express();
+const app = express();
 
-// Connect to DB
 
 // app.get("/insertmany", (req, res) => {
 //     MongoClient.connect(dbUrl, function (err, db) {
@@ -46,7 +40,6 @@ const port = process.env.PORT || 8100
 //     });
 // });
 
-const app = express();
 
 app.engine("mustache", mustacheExpress());
 app.set("views", "./views");
@@ -79,7 +72,7 @@ app.post("/signup", function (req, res) {
             res.redirect("/login")
         })
         .catch(function (err) {
-            if (!savedUser) res.status(500).send(err);
+            res.status(500).send(err);
         });
 });
 

@@ -20,7 +20,7 @@ const userSchema = new Schema({
     avatar: String,
 });
 
-let User = mongoose.model("User", userSchema);
+let User = mongoose.model("users", userSchema);
 
 module.exports = User;
 
