@@ -103,6 +103,7 @@ app.post("/login", function (req, res) {
 });
 
 //get employeed/unemployed
+// $ne selects documents where value of field is NOT equal to the specified value
 app.get("/employed", function (req, res) {
     User.find({ job: { $ne: null } }).then((employedBots) => {
         if (!employedBots) res.status(500).send("no employed bots");
@@ -115,8 +116,6 @@ app.get("/unemployed", function (req, res) {
         res.render("home", { users: unemployedBots });
     })
 });
-
-/////////////////////
 
 //this is for editing a profile
 app.get("/profile/:id", function (req, res) {
@@ -133,12 +132,12 @@ app.get("/profile/:id", function (req, res) {
         })
 });
 
+//this posts new information in the database
 app.post("/profile", function (req, res) {
     let newUser = new User(req.body); //is this a method?? //what is an instance
-    console.log("this is the array: ", newUser);
-    newUser
+    newSnippet
         .save()
-        .then(function (savedUser) { //.then returns a promise(something executed after something is finished)
+        .then(function (savedSnippet) { //.then returns a promise(something executed after something is finished)
             return res.redirect("/");  //can send data, just can't merge data and templetes like render can
         })
         .catch(function (err) {    //.catch returns errors 
@@ -147,9 +146,14 @@ app.post("/profile", function (req, res) {
 })
 
 app.post("/profile/:id", function (req, res) {  //this is the update request 
+
+    if (!req.body.job) {
+        req.body.job = null;
+    }
+
     User.findByIdAndUpdate(req.params.id, req.body)
-        .then(function (updatedUser) {
-            if (!updatedUser) {
+        .then(function (updatedSnippet) {
+            if (!updatedSnippet) {
                 return res.send({ msg: "could not update user" });
             }
             res.redirect("/");
@@ -159,7 +163,7 @@ app.post("/profile/:id", function (req, res) {  //this is the update request
         });
 });
 app.post("/delete/:id", function (req, res) {
-    User.findByIdAndRemove(req.params.id)
+    Snippet.findByIdAndRemove(req.params.id)
         .then(function () {
             res.redirect("/");
         })

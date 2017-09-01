@@ -26,6 +26,15 @@ body {
     justify-content: center;
 }
 
+header {
+    padding-left: 1rem;
+}
+
+nav {
+    display: flex;
+    justify-content: space-around;
+}
+
 
 /* Primary Login/Signup Page Components */
 
@@ -66,7 +75,7 @@ input {
 .profile {
     background-color: white;
     border: 1px solid darkgray;
-    height: 32rem;
+    height: 34rem;
     width: 32rem;
     display: flex;
     margin-top: 4.2rem;

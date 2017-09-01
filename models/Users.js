@@ -16,7 +16,10 @@ const userSchema = new Schema({
     },
     email: String,
     university: String,
-    job: String,
+    job: {
+        type: String,
+        default: ''
+    },
     avatar: String,
 });
 

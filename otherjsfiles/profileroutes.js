@@ -1,6 +1,5 @@
 //import express (for each separate file)
 const express = require('express');
-//create a router
 const profileroutes = express.Router();
 const User = require('../models/Users');
 
