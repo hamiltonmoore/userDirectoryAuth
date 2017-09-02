@@ -1,8 +1,8 @@
 const express = require('express');
 const User = require("../models/Users");
+const indexroutes = express.Router();
 
 //create an express router:
-const indexroutes = express.Router();
 // const data = require('../models/data'); //two dots, goes back a directory, and then one dot searches within current directory 
 
 

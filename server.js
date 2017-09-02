@@ -8,7 +8,6 @@ const mustacheExpress = require("mustache-express");
 const bcrypt = require("bcryptjs");
 const User = require("./models/Users");
 const indexroutes = require("./otherjsfiles/indexroutes");
-const profileroutes = require("./otherjsfiles/profileroutes");
 const sessionConfig = require("./sessionConfig");
 const bluebird = require("bluebird");
 const dbUrl = "mongodb://localhost:27017/userDirectory";
@@ -49,13 +48,7 @@ app.use(express.static(path.join(__dirname, "./public")));
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(logger("dev"));
 app.use("/", indexroutes);
-app.use("/", profileroutes);
 app.use(session(sessionConfig));
-
-//calling routes:
-app.use("/profile", profileroutes);
-
-//databaseRoutes
 
 //authRoutes.signup
 app.get("/signup", function (req, res) {
