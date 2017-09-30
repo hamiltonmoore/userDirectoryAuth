@@ -9,10 +9,7 @@ const indexroutes = express.Router();
 indexroutes.get('/', function (req, res) {
     User.find({})
         .then(function (foundUsers) {
-            console.log('foundUsers: ', foundUsers);
-            // console.log("this is wherer foundUsers is: ", foundusers.length)
             res.render("home", { users: foundUsers });  //only pass one object, with many keys
-            // res.send(foundUsers);  //only pass one object, with many keys
         })
         .catch(err => { console.log(err); res.status(500).send(err) });
 });

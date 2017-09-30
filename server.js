@@ -15,29 +15,7 @@ mongoose.Promise = bluebird;
 let db = mongoose.connect(dbUrl);
 const mongo = require("mongodb");
 const port = process.env.PORT || 8100
-// const data = require("./models/data");
 const app = express();
-
-
-// app.get("/insertmany", (req, res) => {
-//     MongoClient.connect(dbUrl, function (err, db) {
-//         if (err) {
-//             return res.status(500).send(err);
-//         }
-
-//         let Users = db.collection("Users");
-
-//         Users.insertMany(data.users, function (err, db) {
-//             if (err) {
-
-//                 return res.status(500).send(err);
-//             }
-//             res.send(data.users);
-
-//         });
-
-//     });
-// });
 
 
 app.engine("mustache", mustacheExpress());
@@ -115,9 +93,8 @@ app.get("/profile/:id", function (req, res) {
     User.findById(req.params.id)
         .then(function (foundUser) {
             if (!foundUser) {
-                return res.send({ msg: "No User Found" })  //note the absence of plurality 
+                return res.send({ msg: "No User Found" })
             }
-            console.log("foundUser = ", foundUser);
             res.render("profile", { users: foundUser })
         })
         .catch(function (err) {
@@ -127,7 +104,7 @@ app.get("/profile/:id", function (req, res) {
 
 //this posts new information in the database
 app.post("/profile", function (req, res) {
-    let newUser = new User(req.body); //is this a method?? //what is an instance
+    let newUser = new User(req.body);
     newSnippet
         .save()
         .then(function (savedSnippet) { //.then returns a promise(something executed after something is finished)
@@ -169,4 +146,3 @@ app.listen(port, function () {
     console.log(`server is running on port ${port}!`);
 });
 
-//mongo 

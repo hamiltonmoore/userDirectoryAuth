@@ -26,5 +26,3 @@ const userSchema = new Schema({
 let User = mongoose.model("users", userSchema);
 
 module.exports = User;
-
-//url is a string
